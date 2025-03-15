@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Account | SignUp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary-color: #f0f9ff;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+            --border-color: #e5e7eb;
+            --input-bg: #f9fafb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-sm: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: var(--text-color);
+            line-height: 1.5;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Container styles */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* Page layout */
+        .signup-container {
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 1024px) {
+            .signup-container {
+                flex-direction: row;
+                align-items: center;
+                gap: 4rem;
+            }
+        }
+
+        /* Form section */
+        .form-section {
+            flex: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h1 {
+            font-size: 1.875rem;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .form-header p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Form styles */
+        .signup-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 0.875rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            color: var(--text-color);
+            background-color: var(--input-bg);
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            background-color: white;
+        }
+
+        .form-group input::placeholder {
+            color: #9ca3af;
+        }
+
+        /* Name fields side by side */
+        .name-fields {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .name-fields .form-group {
+            flex: 1;
+        }
+
+        /* Password strength indicator */
+        .password-container {
+            position: relative;
+        }
+
+        .password-container .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .password-strength {
+            margin-top: 0.5rem;
+            height: 4px;
+            background-color: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .password-strength-meter {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .password-strength-text {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            color: var(--text-light);
+        }
+
+        /* Checkbox styles */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 1rem;
+            height: 1rem;
+            margin-top: 0.25rem;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .checkbox-group label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .checkbox-group label a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .checkbox-group label a:hover {
+            text-decoration: underline;
+        }
+
+        /* Button styles */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Social login */
+        .social-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .social-divider::before,
+        .social-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+
+        .social-divider::before {
+            margin-right: 1rem;
+        }
+
+        .social-divider::after {
+            margin-left: 1rem;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-color);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .social-btn:hover {
+            background-color: var(--input-bg);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Login link */
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Illustration section */
+        .illustration-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .illustration {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .illustration-text {
+            margin-top: 1.5rem;
+            max-width: 400px;
+        }
+
+        .illustration-text h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-color);
+        }
+
+        .illustration-text p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .features {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .feature-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            text-align: left;
+        }
+
+        .feature-text h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-color);
+        }
+
+        .feature-text p {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        /* Form validation styles */
+        .form-group.error input {
+            border-color: var(--error-color);
+            background-color: #fef2f2;
+        }
+
+        .form-group.error .error-message {
+            color: var(--error-color);
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .form-group.success input {
+            border-color: var(--success-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .name-fields {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .signup-form {
+                padding: 1.5rem;
+            }
+
+            .form-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .illustration-section {
+                display: none;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1023px) {
+            .illustration-section {
+                margin-bottom: 2rem;
+            }
+
+            .illustration {
+                max-width: 70%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="signup-container">
+            <div class="illustration-section">
+                <img src="/Project Ecommerce/Images/reindeer.jpg" alt="Collaboration illustration" class="illustration">
+                <div class="illustration-text">
+                    <h2>Join our community today</h2>
+                    <p>Create an account and get access to all features for 30 days. No credit card required.</p>
+                </div>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Personalized Experience</h3>
+                            <p>Customize your dashboard and get recommendations tailored to your interests.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Secure & Private</h3>
+                            <p>Your data is encrypted and never shared with third parties.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Cancel Anytime</h3>
+                            <p>No long-term contracts. Cancel your subscription whenever you want.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-header">
+                    <h1>Create your account</h1>
+                    <p>Fill in the form below to get started</p>
+                </div>
+
+                <form class="signup-form" id="signupForm">
+                    <div class="name-fields">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Last" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-container">
+                            <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+                            <span class="toggle-password" onclick="togglePasswordVisibility()">
+                                <i class="far fa-eye"></i>
+                            </span>
+                        </div>
+                        <div class="password-strength">
+                            <div class="password-strength-meter" id="passwordStrengthMeter"></div>
+                        </div>
+                        <div class="password-strength-text" id="passwordStrengthText">Password strength</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">
+                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+
+                    <div class="social-divider">Or sign up with</div>
+
+                    <div class="social-buttons">
+                        <button type="button" class="social-btn">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="social-btn">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button type="button" class="social-btn">
+                            <i class="fab fa-apple"></i>
+                        </button>
+                    </div>
+
+                    <div class="login-link">
+                        Already have an account? <a href="#">Log in</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle password visibility
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.toggle-password i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Password strength meter
+        const passwordInput = document.getElementById('password');
+        const strengthMeter = document.getElementById('passwordStrengthMeter');
+        const strengthText = document.getElementById('passwordStrengthText');
+
+        passwordInput.addEventListener('input', updatePasswordStrength);
+
+        function updatePasswordStrength() {
+            const password = passwordInput.value;
+            let strength = 0;
+            let status = '';
+
+            if (password.length > 0) {
+                // Length check
+                if (password.length >= 8) {
+                    strength += 25;
+                }
+
+                // Lowercase and uppercase check
+                if (password.match(/[a-z]/) && password.match(/[A-Z]/)) {
+                    strength += 25;
+                }
+
+                // Number check
+                if (password.match(/\d/)) {
+                    strength += 25;
+                }
+
+                // Special character check
+                if (password.match(/[^a-zA-Z\d]/)) {
+                    strength += 25;
+                }
+
+                // Set status text and color
+                if (strength <= 25) {
+                    status = 'Weak';
+                    strengthMeter.style.backgroundColor = '#ef4444';
+                } else if (strength <= 50) {
+                    status = 'Fair';
+                    strengthMeter.style.backgroundColor = '#f59e0b';
+                } else if (strength <= 75) {
+                    status = 'Good';
+                    strengthMeter.style.backgroundColor = '#3b82f6';
+                } else {
+                    status = 'Strong';
+                    strengthMeter.style.backgroundColor = '#10b981';
+                }
+
+                strengthText.textContent = `Password strength: ${status}`;
+            } else {
+                strengthText.textContent = 'Password strength';
+                strength = 0;
+            }
+
+            strengthMeter.style.width = `${strength}%`;
+        }
+
+        // Form validation
+        const form = document.getElementById('signupForm');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            
+            // Check if passwords match
+            if (passwordInput.value !== confirmPassword.value) {
+                const confirmPasswordGroup = confirmPassword.parentElement;
+                confirmPasswordGroup.classList.add('error');
+                
+                // Create error message if it doesn't exist
+                if (!confirmPasswordGroup.querySelector('.error-message')) {
+                    const errorMessage = document.createElement('div');
+                    errorMessage.className = 'error-message';
+                    errorMessage.textContent = 'Passwords do not match';
+                    confirmPasswordGroup.appendChild(errorMessage);
+                }
+                
+                isValid = false;
+            } else {
+                const confirmPasswordGroup = confirmPassword.parentElement;
+                confirmPasswordGroup.classList.remove('error');
+                const errorMessage = confirmPasswordGroup.querySelector('.error-message');
+                if (errorMessage) {
+                    errorMessage.remove();
+                }
+            }
+            
+            // If form is valid, you would typically submit it here
+            if (isValid) {
+                alert('Account created successfully! (This is just a demo)');
+                form.reset();
+                strengthMeter.style.width = '0';
+                strengthText.textContent = 'Password strength';
+            }
+        });
+    </script>
+</body>
+</html>
