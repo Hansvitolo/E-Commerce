@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shimmers | Fashion Store</title>
+    <script src="https://kit.fontawesome.com/934a2ff6c6.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        :root {
+            --primary-color: #d6336c;
+            --primary-light: #f06595;
+            --primary-dark: #a61e4d;
+            --secondary-color: #343a40;
+            --text-color: #212529;
+            --text-light: #6c757d;
+            --background-color: #f8f9fa;
+            --border-color: #dee2e6;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Top navigation (nav1) */
+        .nav1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 40px;
+            background-color: var(--background-color);
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social i {
+            color: var(--text-light);
+            transition: color var(--transition-fast);
+            font-size: 1rem;
+        }
+
+        .social i:hover {
+            color: var(--primary-color);
+        }
+
+        .mid {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .mid i {
+            font-size: 0.7rem;
+            color: var(--primary-color);
+        }
+
+        .mid a {
+            color: var(--secondary-color);
+            transition: color var(--transition-fast);
+        }
+
+        .mid a:hover {
+            color: var(--primary-color);
+        }
+
+        .end {
+            position: relative;
+        }
+
+        .end > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            transition: color var(--transition-fast);
+        }
+
+        .end > a:hover {
+            color: var(--primary-color);
+        }
+
+        .end i {
+            margin-left: 5px;
+            transition: transform var(--transition-normal);
+        }
+
+        .end:hover i.fa-angle-down {
+            transform: rotate(180deg);
+        }
+
+        .currency-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--white);
+            box-shadow: var(--shadow-md);
+            border-radius: 4px;
+            width: 200px;
+            padding: 10px 0;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all var(--transition-normal);
+            z-index: 100;
+        }
+
+        .end:hover .currency-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .currency-dropdown ul {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .currency-dropdown li {
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background-color var(--transition-fast);
+        }
+
+        .currency-dropdown li:hover {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+        }
+
+        /* Middle navigation (nav2) */
+        .nav2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: var(--white);
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 2px solid var(--background-color);
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .search {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 40px;
+            position: relative;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            background-color: var(--background-color);
+            transition: all var(--transition-normal);
+        }
+
+        .search input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(214, 51, 108, 0.1);
+            background-color: var(--white);
+        }
+
+        .search input::placeholder {
+            color: var(--text-light);
+        }
+
+        .search button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: color var(--transition-fast);
+        }
+
+        .search button:hover {
+            color: var(--primary-color);
+        }
+
+        .nav2 .end {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .icon-link i {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            transition: color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .icon-link span {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            transition: color var(--transition-fast);
+        }
+
+        .icon-link:hover i {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .icon-link:hover span {
+            color: var(--primary-color);
+        }
+
+        /* Bottom navigation (nav3) */
+        .nav3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--white);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav3 a {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--secondary-color);
+            position: relative;
+            transition: color var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav3 a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav3 a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width var(--transition-normal), left var(--transition-normal);
+        }
+
+        .nav3 a:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+
+        .nav3 i {
+            font-size: 0.7rem;
+            margin-left: 3px;
+            transition: transform var(--transition-normal);
+        }
+
+        .nav3 a:hover i {
+            transform: rotate(180deg);
+        }
+
+        /* Hero section */
+        .hero {
+            height: 80vh;
+            background-image: url('https://source.unsplash.com/random/1920x1080?fashion,women');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 40px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            color: var(--white);
+        }
+
+        .hero-content h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .cta-button {
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background-color var(--transition-normal), transform var(--transition-fast);
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Categories section */
+        .categories {
+            padding: 60px 0;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .category-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-image {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .category-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .category-card:hover .category-image img {
+            transform: scale(1.05);
+        }
+
+        .category-link {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--secondary-color);
+            transition: background-color var(--transition-normal);
+        }
+
+        .category-link:hover {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+
+        .category-link i {
+            transition: transform var(--transition-normal);
+        }
+
+        .category-link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* New arrivals section */
+        .new-arrivals {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .product-image {
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* This is the key enhancement for the image hover effect */
+        .slider-image {
+            transition: background-image var(--transition-slow);
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0; /* Fallback color if image fails to load */
+        }
+
+        .quick-view {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            transition: bottom var(--transition-normal);
+            display: flex;
+            justify-content: center;
+        }
+
+        .product-card:hover .quick-view {
+            bottom: 0;
+        }
+
+        .quick-view button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color var(--transition-fast);
+        }
+
+        .quick-view button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .size-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background-color: var(--white);
+            color: var(--text-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .size-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .size-btn.selected {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 10px 0;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color var(--transition-normal);
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-color);
+        }
+
+        .view-all {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .view-all-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: transparent;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all var(--transition-normal);
+        }
+
+        .view-all-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav1, .nav2, .nav3 {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .search {
+                margin: 0 20px;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-content h2 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav1 {
+                display: none; /* Hide top nav on mobile */
+            }
+
+            .nav2 {
+                padding: 10px 15px;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+
+            .search {
+                max-width: 200px;
+                margin: 0 15px;
+            }
+
+            .icon-link span {
+                display: none;
+            }
+
+            .nav3 {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 12px 10px;
+            }
+
+            .nav3 a {
+                padding: 8px 12px;
+                white-space: nowrap;
+                font-size: 0.75rem;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .hero {
+                height: 60vh;
+            }
+
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .product-image {
+                height: 300px;
+            }
+
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav1">
+            <div class="social">
+                <a href="https://www.facebook.com/login/"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.youtube.com/"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.pinterest.com/"><i class="fa-brands fa-pinterest"></i></a>
+            </div>
+            <div class="mid">
+                <i class="fa-solid fa-less-than"></i>
+                <a href="">EASY RETURNS</a>
+                <i class="fa-solid fa-greater-than"></i>
+            </div>
+            <div class="end">
+                <a href="">AUD $ | Australia<i class="fa-solid fa-angle-down"></i></a>
+                <div class="currency-dropdown">
+                    <ul>
+                        <li>CAD $ | Canada</li>
+                        <li>EUR € | Fiji</li>
+                        <li>EUR € | Germany</li>
+                        <li>EUR € | Ireland</li>
+                        <li>EUR € | New Caledonia</li>
+                        <li>NZD $ | New Zealand</li>
+                        <li>EUR € | Papua New Guinea</li>
+                        <li>EUR € | Singapore</li>
+                        <li>EUR € | South Africa</li>
+                        <li>EUR € | Thailand</li>
+                        <li>GBP £ | United Kingdom</li>
+                        <li>USD $ | United States</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="nav2">
+            <div class="logo">
+                <a href="new home page.html"><img src="./Images/woman-7074930_1280.png" alt="Shimmers Logo" width="100%" height="100%"></a>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="Search for products...">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div class="end">
+                <a href="Log In.html" class="icon-link"><i class="fa-regular fa-user"></i><span>Account</span></a>
+                <a href="Product.html" class="icon-link"><i class="fa-regular fa-heart"></i><span>Wishlist</span></a>
+                <a href="Project shimmers Order page.html" class="icon-link"><i class="fa-solid fa-cart-shopping"></i><span>Cart</span></a>
+            </div>
+        </div>
+        <div class="nav3">
+            <a href="">NEW ARRIVALS</a>
+            <a href="">BACK IN STOCK</a>
+            <a href="">SHOP ALL<i class="fa-solid fa-angle-down"></i></a>
+            <a href="">SHOP BY<i class="fa-solid fa-angle-down"></i></a>
+            <a href="">BRANDS<i class="fa-solid fa-angle-down"></i></a>
+            <a href="">SHOP BY SIZE<i class="fa-solid fa-angle-down"></i></a>
+            <a href="">SALE<i class="fa-solid fa-angle-down"></i></a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2 id="new">NEW <br>ARRIVALS</h2>
+            <p>AFFORDABLE FASHION FOR WOMEN</p>
+            <button class="cta-button">SHOP NEW ARRIVALS</button>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="/Project Ecommerce/Images/1e25f06f0ea2fbc504dd87034ee8f275.jpg" alt="Shoes">
+                    </div>
+                    <a href="order-page.html" class="category-link">
+                        <span>Shoes</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="./Images/Resusable_shopping_bag_RSB_IMG_29722.webp" alt="Bags">
+                    </div>
+                    <a href="order-page.html" class="category-link">
+                        <span>Bags</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="./Images/Uluwatu_Cowrie_Shell_Straw_Hat_Tan_FSH9022_I.webp" alt="Hats">
+                    </div>
+                    <a href="order-page.html" class="category-link">
+                        <span>Hats</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="new-arrivals">
+        <div class="container">
+            <h2 class="section-title">NEW ARRIVALS</h2>
+            
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image slider-image"
+                         data-hover="Images/Lara_Knit_Cardigan_6382_pink_3811_beanie_navycopy.webp" 
+                         data-original="Images/Lara_Knit_Cardigan_6382_pink_3814_beanie_navycopy.webp">
+                         <!-- <img src="./Images/2238A-colour_heringbonejacket_2231po.webp" alt=""> -->
+                         <div class="quick-view">
+                            <a href="Project shimmers Order page.html"><button>Quick View</button></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Dakota Jacket - Rainbow Houndstooth</h3>
+                        <p class="product-price">₦35,000</p>
+                        <div class="size-options">
+                            <a href="Project shimmers Order page.html"><button class="size-btn">S</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">M</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">L</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">XL</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">XXL</button></a>
+                        </div>
+                        <a href="Project shimmers Order page.html"><button class="add-to-cart">Add to Cart</button></a>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image slider-image" 
+                    data-hover="Images/6008_camel_Cardigan_12872_check_skirt_2314po.webp"
+                    data-original="Images/6008_camel_Cardigan_12872_check_skirt_2345po.webp">
+                         <!-- <img src="./Images/2nd.webp" alt=""> -->
+                         <div class="quick-view">
+                            <a href="Project shimmers Order page.html"><button>Quick View</button></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Camel Cardigan - With Check Shirt</h3>
+                        <p class="product-price">₦40,000</p>
+                        <div class="size-options">
+                            <a href="Project shimmers Order page.html"><button class="size-btn">S</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">M</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">L</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">XL</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">XXL</button></a>
+                        </div>
+                        <a href="Project shimmers Order page.html"><button class="add-to-cart">Add to Cart</button></a>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image slider-image" 
+                         data-hover="Images/Hestia_Shirt_White_Wildflower_32935_1_Jolie_Saule_0505.webp" 
+                         data-original="Images/Hestia_Shirt_White_Wildflower_32935_1_Jolie_Saule_0511.webp">
+                         <!-- <img src="./Images/Abigail_Ladies_Occasion_Dress_teal_1800_0619SQsquare_52a51f56-91a3-4bbe-b9e6-ad883548d9e5.webp" alt=""> -->
+                         <div class="quick-view">
+                            <a href="Project shimmers Order page.html"><button>Quick View</button></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Hestia Shirt - White Wild Flower</h3>
+                        <p class="product-price">₦21,000</p>
+                        <div class="size-options">
+                            <a href="Project shimmers Order page.html"><button class="size-btn">S</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">M</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">L</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">XL</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">XXL</button></a>
+                        </div>
+                        <a href="Project shimmers Order page.html"><button class="add-to-cart">Add to Cart</button></a>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image slider-image" 
+                         data-hover="Images/Hastings_Jacket_dusk_forest_6505_4.webp" 
+                         data-original="Images/Hastings_Jacket_dusk_forest_6505_7.webp">
+                         <!-- <img src="./Images/fashion.jpg" alt=""> -->
+                        <div class="quick-view">
+                            <a href="Project shimmers Order page.html"><button>Quick View</button></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Hastings Jacket - Dusk Forest</h3>
+                        <p class="product-price">₦32,000</p>
+                        <div class="size-options">
+                            <a href="Project shimmers Order page.html"><button class="size-btn">S</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">M</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">L</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">XL</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">XXL</button></a>
+                        </div>
+                        <a href="Project shimmers Order page.html"><button class="add-to-cart">Add to Cart</button></a>
+                    </div>
+                </div>
+
+                <!-- product 5 -->
+
+                <div class="product-card">
+                    <div class="product-image slider-image" 
+                         data-hover="Images/Hastings_Jacket_dusk_forest_6505_4.webp" 
+                         data-original="Images/Hastings_Jacket_dusk_forest_6505_7.webp">
+                         <img src="Images/Hastings_Jacket_dusk_forest_6505_7.webp" alt="">
+                        <div class="quick-view">
+                            <button>Quick View</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Hastings Jacket - Dusk Forest</h3>
+                        <p class="product-price">₦32,000</p>
+                        <div class="size-options">
+                            <a href="Project shimmers Order page.html"><button class="size-btn">S</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">M</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">L</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">XL</button></a>
+                            <a href="Project shimmers Order page.html"><button class="size-btn">XXL</button></a>
+                        </div>
+                        <a href="Project shimmers Order page.html"><button class="add-to-cart">Add to Cart</button></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="view-all">
+                <a href="Product.html" class="view-all-btn">View All New Arrivals</a>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize product image hover effects
+            // initializeImageHover();
+            
+            // Initialize size selection
+            initializeSizeSelection();
+        });
+
+        // function initializeImageHover() {
+        //     const sliderImages = document.querySelectorAll('.slider-image');
+            
+        //     sliderImages.forEach((image) => {
+        //         // Set initial background image
+        //         const originalImage = image.dataset.original;
+        //         const hoverImage = image.dataset.hover;
+                
+        //         if (originalImage) {
+        //             console.log("the original image")
+        //             // Create a new image object to check if the image exists
+        //             const imgTest = new Image();
+        //             imgTest.onerror = function() {
+        //                 console.error('Failed to load image:', originalImage);
+        //                 // Use a fallback color or image if the original doesn't load
+        //                 image.style.backgroundColor = '#f0f0f0';
+        //             };
+        //             imgTest.onload = function() {
+        //                 image.style.backgroundImage = `url(${originalImage})`;
+        //             };
+        //             imgTest.src = originalImage;
+        //         }
+                
+        //         // Add hover event listeners with smooth transition
+        //         image.addEventListener('mouseover', function() {
+        //             console.log("mouse hovered")
+        //             if (hoverImage) {
+        //                 // Preload the hover image for smoother transition
+        //                 const img = new Image();
+        //                 img.onload = function() {
+        //                     image.style.backgroundImage = `url(${hoverImage})`;
+        //                 };
+        //                 img.onerror = function() {
+        //                     console.error('Failed to load hover image:', hoverImage);
+        //                     // If hover image fails, keep the original
+        //                 };
+        //                 img.src = hoverImage;
+        //             }
+        //         });
+                
+        //         image.addEventListener('mouseout', function() {
+        //             if (originalImage) {
+        //                 image.style.backgroundImage = `url(${originalImage})`;
+        //             }
+        //         });
+        //     });
+        // }
+
+        document.addEventListener('DOMContentLoaded', function(){
+    const sliderImage = document.querySelectorAll('.slider-image');
+    console.log(sliderImage)
+    sliderImage.forEach((image) => {
+        image.addEventListener('mouseover', function(){
+            console.log('hover');
+            this.style.backgroundImage = `url(${this.dataset.hover})`
+        });
+        image.addEventListener('mouseout', function(){
+            console.log('out');
+            this.style.backgroundImage = `url(${this.dataset.original})`
+        });
+    });
+});
+
+        function initializeSizeSelection() {
+            const sizeButtons = document.querySelectorAll('.size-btn');
+            
+            sizeButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Find all size buttons in the same product card
+                    const productCard = this.closest('.product-info');
+                    const sizeButtonsInCard = productCard.querySelectorAll('.size-btn');
+                    
+                    // Remove selected class from all buttons in this card
+                    sizeButtonsInCard.forEach(button => {
+                        button.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to the clicked button
+                    this.classList.add('selected');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
