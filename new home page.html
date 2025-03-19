@@ -340,14 +340,34 @@
         /* Hero section */
         .hero {
             height: 80vh;
-            background-image: url('https://source.unsplash.com/random/1920x1080?fashion,women');
-            background-size: cover;
-            background-position: center;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: flex-start;
             padding: 0 40px;
+            overflow: hidden;
+        }
+
+        .hero-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
         }
 
         .hero::before {
@@ -358,6 +378,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
+            z-index: 0;
         }
 
         .hero-content {
@@ -396,6 +417,34 @@
         .cta-button:hover {
             background-color: var(--primary-dark);
             transform: translateY(-2px);
+        }
+
+        /* Video controls */
+        .video-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2;
+            display: flex;
+            gap: 10px;
+        }
+
+        .video-btn {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color var(--transition-fast);
+        }
+
+        .video-btn:hover {
+            background-color: var(--primary-color);
         }
 
         /* Categories section */
@@ -806,9 +855,28 @@
     </header>
 
     <section class="hero">
+        <div class="hero-video-container">
+            <video class="hero-video" autoplay loop muted playsinline poster="./Images/18897-297379518_small.mp4">
+                <source src="./Videos/fashion-video.mp4" type="video/mp4">
+                <!-- Add additional source formats for better browser compatibility -->
+                <source src="./Images/140828-776043783_small.mp4" type="video/webm">
+                <!-- Fallback for browsers that don't support video -->
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <!-- <div class="video-controls">
+            <button class="video-btn" id="playPauseBtn">
+                <i class="fa-solid fa-pause" id="playPauseIcon"></i>
+            </button>
+            <button class="video-btn" id="muteBtn">
+                <i class="fa-solid fa-volume-xmark" id="muteIcon"></i>
+            </button>
+        </div> -->
+        
         <div class="hero-content">
             <h2 id="new">NEW <br>ARRIVALS</h2>
-            <p>AFFORDABLE FASHION FOR WOMEN</p>
+            <p>AFFORDABLE FASHION FOR UNISEX</p>
             <button class="cta-button">SHOP NEW ARRIVALS</button>
         </div>
     </section>
