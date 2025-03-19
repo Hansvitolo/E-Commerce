@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img:hover{
+            cursor: pointer;
+            filter: blur(100);
+            background: url("Images/1e6e1ad54665027021d1b8efc19ae74a.jpg");
+        }
+        div{
+            background-image: url("Images/ballons.jpg");
+            background-size: cover;
+            background-position:center; 
+            background-repeat: no-repeat;
+        }
+        div:hover{
+            background-image: url("Images/1e6e1ad54665027021d1b8efc19ae74a.jpg");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <img src="./Images/1e25f06f0ea2fbc504dd87034ee8f275.jpg" alt="" id="demo">
+    <div style="width: 300px; height: 120px; border: 2px solid black;" id="">
+
+    </div>
+
+    <script>
+        const newImg = document.getElementById("demo");
+
+        newImg.addEventListener("mouseenter", () =>{
+            newImg.src = "./Images/ballons.jpg"
+        })
+        newImg.addEventListener("mouseleave", ()=>{
+            newImg.src = "./Images/1e25f06f0ea2fbc504dd87034ee8f275.jpg"
+        })
+        
+       
+
+    </script>
+</body>
+</html>

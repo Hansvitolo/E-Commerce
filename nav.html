@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Navigation Bar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Header container */
+        header {
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Top navigation (nav1) */
+        .nav1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 40px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            font-size: 0.85rem;
+        }
+
+        .social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social i {
+            color: #555;
+            transition: color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .social i:hover {
+            color: #e83e8c;
+        }
+
+        .mid {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .mid i {
+            font-size: 0.7rem;
+            color: #e83e8c;
+        }
+
+        .mid a {
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .mid a:hover {
+            color: #e83e8c;
+        }
+
+        .end {
+            position: relative;
+        }
+
+        .end > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #555;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .end > a:hover {
+            color: #e83e8c;
+        }
+
+        .end i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .end:hover i.fa-angle-down {
+            transform: rotate(180deg);
+        }
+
+        .currency-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            width: 200px;
+            padding: 10px 0;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .end:hover .currency-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .currency-dropdown ul {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .currency-dropdown li {
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .currency-dropdown li:hover {
+            background-color: #f8f9fa;
+            color: #e83e8c;
+        }
+
+        /* Middle navigation (nav2) */
+        .nav2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: white;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 2px solid #f8f9fa;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .search {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 40px;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .search input:focus {
+            outline: none;
+            border-color: #e83e8c;
+            box-shadow: 0 0 0 3px rgba(232, 62, 140, 0.1);
+            background-color: white;
+        }
+
+        .search input::placeholder {
+            color: #aaa;
+        }
+
+        .nav2 .end {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav2 .end i {
+            font-size: 1.3rem;
+            color: #555;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .nav2 .end i:hover {
+            color: #e83e8c;
+            transform: scale(1.1);
+        }
+
+        /* Bottom navigation (nav3) */
+        .nav3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: white;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav3 a {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #333;
+            position: relative;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav3 a:hover {
+            color: #e83e8c;
+        }
+
+        .nav3 a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #e83e8c;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .nav3 a:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+
+        .nav3 i {
+            font-size: 0.7rem;
+            margin-left: 3px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav3 a:hover i {
+            transform: rotate(180deg);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .nav1, .nav2, .nav3 {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .search {
+                margin: 0 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav1 {
+                display: none; /* Hide top nav on mobile */
+            }
+
+            .nav2 {
+                padding: 10px 15px;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+
+            .search {
+                max-width: 200px;
+                margin: 0 15px;
+            }
+
+            .nav3 {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 12px 10px;
+            }
+
+            .nav3 a {
+                padding: 8px 12px;
+                white-space: nowrap;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav1">
+            <div class="social">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-youtube"></i>
+                <i class="fa-brands fa-pinterest"></i>
+            </div>
+            <div class="mid">
+                <i class="fa-solid fa-less-than"></i>
+                <a href="">EASY RETURNS</a>
+                <i class="fa-solid fa-greater-than"></i>
+            </div>
+            <div class="end">
+                <a href="">AUD $ | Australia<i class="fa-solid fa-angle-down"></i></a>
+                <div class="currency-dropdown">
+                    <ul>
+                        <li>CAD $ | Canada</li>
+                        <li>EUR € | Fiji</li>
+                        <li>EUR € | Germany</li>
+                        <li>EUR € | Ireland</li>
+                        <li>EUR € | New Caledonia</li>
+                        <li>NZD $ | New Zealand</li>
+                        <li>EUR € | Papua New Guinea</li>
+                        <li>EUR € | Singapore</li>
+                        <li>EUR € | South Africa</li>
+                        <li>EUR € | Thailand</li>
+                        <li>GBP £ | United Kingdom</li>
+                        <li>USD $ | United States</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="nav2">
+            <div class="logo">
+                <img src="https://source.unsplash.com/random/200x200?fashion" alt="Logo" width="100%" height="100%">
+            </div>
+            <div class="search">
+                <input type="text" placeholder="Search for products...">
+            </div>
+            <div class="end">
+                <i class="fa-regular fa-user"></i>
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+        </div>
+        <div class="nav3">
+            <a href="">NEW ARRIVALS</a>
+            <a href="">BACK IN STOCK</a>
+            <a href="">SHOP ALL<i class="fa-solid fa-angle-down"></i></a>
+            <a href="">SHOP BY<i class="fa-solid fa-angle-down"></i></a>
+            <a href="">BRANDS<i class="fa-solid fa-angle-down"></i></a>
+            <a href="">SHOP BY SIZE<i class="fa-solid fa-angle-down"></i></a>
+            <a href="">SALE<i class="fa-solid fa-angle-down"></i></a>
+        </div>
+    </header
